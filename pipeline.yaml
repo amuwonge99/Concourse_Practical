@@ -2,34 +2,11 @@ resources:
   - name: terraform-repo
     type: git
     source:
-      uri: https://github.com/gurmelsingh120/Concourse-Practical.git
+      uri: https://github.com/amuwonge99/Concourse_Practical.git
       branch: main
 
 jobs:
-  - name: group-two-job
+  - name: gus-job
     plan:
       - get: terraform-repo
         trigger: true
-
-      - task: terraform-init-plan-apply
-        image_resource:
-          type: registry-image
-          source:
-            repository: amuwonge99/web
-        params:
-           AWS_ACCESS_KEY_ID: ((aws_access_key_id))
-           AWS_SECRET_ACCESS_KEY: ((aws_secret_access_key))
-           AWS_DEFAULT_REGION: eu-west-1
-        config:
-          platform: linux
-          inputs:
-            - name: terraform-repo
-          run:
-            path: sh
-            args:
-              - -exc
-              - |
-                cd terraform-repo
-                terraform init
-                terraform plan
-                terraf
